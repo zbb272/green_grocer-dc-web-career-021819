@@ -13,18 +13,6 @@ def consolidate_cart(cart)
   new_cart
 end
 
-# given 
-# [
-#   {"AVOCADO" => {:price => 3.0, :clearance => true }},
-#   {"AVOCADO" => {:price => 3.0, :clearance => true }},
-#   {"KALE"    => {:price => 3.0, :clearance => false}}
-# ]
-# return 
-# {
-#   "AVOCADO" => {:price => 3.0, :clearance => true, :count => 2},
-#   "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
-# }
-
 def apply_coupons(cart, coupons)
   new_cart = {}
   
@@ -41,23 +29,8 @@ def apply_coupons(cart, coupons)
       end 
     end 
   end 
-  
   new_cart.merge!(cart)
 end
-
-# given 
-# {
-#   "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
-#   "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
-# }
-# and 
-# [{:item => "AVOCADO", :num => 2, :cost => 5.0}]
-# return 
-# {
-#   "AVOCADO" => {:price => 3.0, :clearance => true, :count => 1},
-#   "KALE"    => {:price => 3.0, :clearance => false, :count => 1},
-#   "AVOCADO W/COUPON" => {:price => 5.0, :clearance => true, :count => 1},
-# }
 
 def apply_clearance(cart)
   cart.each do | item, item_details |
