@@ -71,7 +71,7 @@ def checkout(cart, coupons)
   new_cart.each do | item, item_details |
     coupons.each do | coupon |
       if item == coupon[:item] && coupon[:num] >= item_details[:count]
-        coupons.
+        coupons.slice!(coupon)
       end 
     end 
   end 
