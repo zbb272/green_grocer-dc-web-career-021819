@@ -39,6 +39,8 @@ def apply_coupons(cart, coupons)
   #   end 
   # end 
   
+  puts coupons
+  
   coupons.each do | coupon |
     cart.each do | item, item_details |
       if item == coupon[:item] && coupon[:num] >= item_details[:count]
