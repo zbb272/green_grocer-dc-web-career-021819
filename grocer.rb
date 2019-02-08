@@ -44,11 +44,11 @@ def apply_coupons(cart, coupons)
       if item == coupon[:item] && coupon[:num] >= item_details[:count]
         puts "#{item} == #{coupon[:item]}"
         puts "#{coupon[:num]} >= #{item_details[:count]}"
-        if cart.has_key?("#{coupon[:item]} W/COUPON")
-          cart["#{coupon[:item]} W/COUPON"][:count] += 1
+        if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+          new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
           item_details[:count] -= coupon[:num]
         else 
-          cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => item_details[:clearance], :count => 1}
+          new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => item_details[:clearance], :count => 1}
           item_details[:count] -= coupon[:num]
         end 
       end 
@@ -81,7 +81,7 @@ def apply_coupons(cart, coupons)
   
   cart 
   
-  # new_cart = new_cart.merge(cart)
+  new_cart = new_cart.merge(cart)
 end
 
 # given 
