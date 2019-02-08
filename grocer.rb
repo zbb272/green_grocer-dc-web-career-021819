@@ -53,6 +53,8 @@ def apply_coupons(cart, coupons)
     end 
   end 
   
+  cart.delete_if
+  
   # new_cart.each do | item, item_details |
   #   coupons.each_with_index do | coupon, index |
   #     if item == coupon[:item] && coupon[:num] >= item_details[:count]
