@@ -27,27 +27,10 @@ end
 
 def apply_coupons(cart, coupons)
   new_cart = {}
-  # coupons.each do | coupon |
-  #   if cart.has_key?(coupon[:item])
-  #     if new_cart.has_key?("#{coupon[:item]} W/COUPON")
-  #       new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
-  #       cart[coupon[:item]][:count] -= coupon[:num]
-  #     else 
-  #       new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
-  #       cart[coupon[:item]][:count] -= coupon[:num]
-  #     end 
-  #   end 
-  # end 
-  
-  puts coupons
   
   coupons.each do | coupon |
     cart.each do | item, item_details |
-      puts "#{item} == #{coupon[:item]}"
-      puts "#{coupon[:num]} >= #{item_details[:count]}"
       if item == coupon[:item] && coupon[:num] <= item_details[:count]
-        puts "#{item} == #{coupon[:item]}"
-        puts "#{coupon[:num]} >= #{item_details[:count]}"
         if new_cart.has_key?("#{coupon[:item]} W/COUPON")
           new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
           item_details[:count] -= coupon[:num]
@@ -58,30 +41,6 @@ def apply_coupons(cart, coupons)
       end 
     end 
   end 
-  
-  # cart.delete_if do | item, item_details |
-  #   item_details[:count] == 0 
-  # end 
-  
-  # new_cart.each do | item, item_details |
-  #   coupons.each_with_index do | coupon, index |
-  #     if item == coupon[:item] && coupon[:num] >= item_details[:count]
-  #       if new_cart.has_key?("#{coupon[:item]} W/COUPON")
-  #         new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
-  #         item_details[:count] -= coupon[:num]
-          
-  #         coupons.slice!(index)
-  #       else 
-  #         new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => item_details[:clearance], :count => 1}
-  #         item_details[:count] -= coupon[:num]
-          
-  #         coupons.slice!(index)
-  #       end 
-  #     end 
-  #   end 
-  # end 
-  
-  puts cart 
   
   cart 
   
