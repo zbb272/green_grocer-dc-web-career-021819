@@ -69,9 +69,9 @@ def checkout(cart, coupons)
   new_cart = consolidate_cart(cart)
   
   new_cart.each do | item, item_details |
-    coupons.each do | coupon |
+    coupons.each_with_index do | coupon, index |
       if item == coupon[:item] && coupon[:num] >= item_details[:count]
-        coupons.slice!(coupon)
+        coupons.slice!(index)
       end 
     end 
   end 
