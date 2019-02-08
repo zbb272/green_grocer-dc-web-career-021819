@@ -41,12 +41,18 @@ def apply_coupons(cart, coupons)
   
   coupons.each do | coupon |
     cart.each do | item, item_details |
-      if new_cart.has_key?("#{coupon[:item]} W/COUPON")
-        new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
-        cart[coupon[:item]][:count] -= coupon[:num]
-      else 
-        new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
-        cart[coupon[:item]][:count] -= coupon[:num]
+      if item == coupon[:item] && coupon[:num] >= item_details[:count]
+        if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+          new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+          item_details[:count] -= coupon[:num]
+          
+          coupons.slice!(index)
+        else 
+          new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => item_details[:clearance], :count => 1}
+          item_details[:count] -= coupon[:num]
+          
+          coupons.slice!(index)
+        end 
       end 
     end 
   end 
