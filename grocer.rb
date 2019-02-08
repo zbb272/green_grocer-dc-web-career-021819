@@ -40,7 +40,29 @@ def apply_coupons(cart, coupons)
   end 
   
   coupons.each do | coupon |
-    if c
+    cart.each do | item, item_details |
+      if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+        new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+        cart[coupon[:item]][:count] -= coupon[:num]
+      else 
+        new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
+        cart[coupon[:item]][:count] -= coupon[:num]
+      end 
+    end 
+  end 
+  
+  new_cart.each do | item, item_details |
+    coupons.each do | coupon |
+      if item == coupon[:item] && coupon[:num] >= item_details[:count]
+        if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+          new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+          item_details[:count] -= coupon[:num]
+        else 
+          new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
+          cart[coupon[:item]][:count] -= coupon[:num]
+        end 
+      end 
+    end 
   end 
   
   new_cart = new_cart.merge(cart)
