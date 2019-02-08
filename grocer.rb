@@ -27,29 +27,29 @@ end
 
 def apply_coupons(cart, coupons)
   new_cart = {}
-  coupons.each do | coupon |
-    if cart.has_key?(coupon[:item])
-      if new_cart.has_key?("#{coupon[:item]} W/COUPON")
-        new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
-        cart[coupon[:item]][:count] -= coupon[:num]
-      else 
-        new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
-        cart[coupon[:item]][:count] -= coupon[:num]
-      end 
-    end 
-  end 
+  # coupons.each do | coupon |
+  #   if cart.has_key?(coupon[:item])
+  #     if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+  #       new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+  #       cart[coupon[:item]][:count] -= coupon[:num]
+  #     else 
+  #       new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
+  #       cart[coupon[:item]][:count] -= coupon[:num]
+  #     end 
+  #   end 
+  # end 
   
-  coupons.each do | coupon |
-    cart.each do | item, item_details |
-      if new_cart.has_key?("#{coupon[:item]} W/COUPON")
-        new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
-        cart[coupon[:item]][:count] -= coupon[:num]
-      else 
-        new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
-        cart[coupon[:item]][:count] -= coupon[:num]
-      end 
-    end 
-  end 
+  # coupons.each do | coupon |
+  #   cart.each do | item, item_details |
+  #     if new_cart.has_key?("#{coupon[:item]} W/COUPON")
+  #       new_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+  #       cart[coupon[:item]][:count] -= coupon[:num]
+  #     else 
+  #       new_cart["#{coupon[:item]} W/COUPON"] = {:price => coupon[:cost], :clearance => cart[coupon[:item]][:clearance], :count => 1}
+  #       cart[coupon[:item]][:count] -= coupon[:num]
+  #     end 
+  #   end 
+  # end 
   
   new_cart.each do | item, item_details |
     coupons.each do | coupon |
@@ -94,15 +94,6 @@ end
 def checkout(cart, coupons)
   
   new_cart = consolidate_cart(cart)
-  
-  new_cart.each do | item, item_details |
-    coupons.each_with_index do | coupon, index |
-      if item == coupon[:item] && coupon[:num] >= item_details[:count]
-        coupons.slice!(index)
-      end 
-    end 
-  end 
-  
   new_cart = apply_coupons(new_cart, coupons)
   new_cart = apply_clearance(new_cart)
   
