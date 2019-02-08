@@ -38,6 +38,11 @@ def apply_coupons(cart, coupons)
       end 
     end 
   end 
+  
+  coupons.each do | coupon |
+    if c
+  end 
+  
   new_cart = new_cart.merge(cart)
 end
 
